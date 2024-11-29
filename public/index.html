@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    </head>
+    <body>
+        <div id="info">
+            LAT : <span id="lat"></span><br>
+            LNG : <span id="lng"></span>
+        </div>
+        <div id="map" style="height: 800px;"></div>
+
+        <script>
+            const map = L.map("map").setView([51.505, -0.09], 13); // Default coordinates and zoom
+
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+              attribution: '© OpenStreetMap contributors',
+              maxZoom: 19,
+            }).addTo(map);
+
+            const busMarker = L.marker([0, 0]).addTo(map);
+            busMarker.bindPopup("Bus Location");
+
+            fetchBusLocations();
+            async function fetchBusLocations() {
+                console.log('loaded')
+                const response = await fetch("/bus-locations");
+                const locations = await response.json();
+
+                if (locations.bus1) {
+                    const { latitude, longitude } = locations.bus1;
+                    busMarker.setLatLng([latitude, longitude]);
+                    map.setView([latitude, longitude], 13);
+                }
+            }
+
+            setInterval(fetchBusLocations, 3000); // Fetch every 3 seconds
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4WeeyYAKv7YmFyTuqpOMFBaIJLjeNJSc"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
