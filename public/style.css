@@ -1,0 +1,65 @@
+* {
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    margin: 0;
+}
+
+#navigation {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 0.2fr;
+    font-size: 1.5em;
+    font-weight: 600;
+    background-color: #2d2d2d;
+}
+
+nav > div{
+    padding: 10px;
+    color: #ffffff;
+}
+
+.nav-item:hover {
+    background-color: #888;
+    cursor: pointer;
+}
+
+#map {
+    height: 100%;
+}
+
+#location, #info{
+    text-align: center;
+    font-weight:600;
+    font-size: 1em;
+    width: 200px;
+    height: 100%;
+    border-style: 1px #2d2d2d solid;
+    background-color: #c8c8c8;
+}
+
+#location .show, #info .show{
+    display: inline-block;
+    position: relative;
+    width: 200px;
+    height: 100%;
+    border-style: 1px #2d2d2d solid;
+    background-color: #c8c8c8;
+}
+
+.location-item:hover, #info:hover{
+    background-color: #449eda;
+    cursor:pointer;
+    text-decoration: none;
+}
+
+.location-item, .info-item{
+    position: absolute;
+    display: block;
+    width: 200px;
+    height: 100%;
+    border-style: 1px #2d2d2d solid;
+    background-color: #c8c8c8;
+    cursor:pointer;
+    text-decoration: none;
+}
