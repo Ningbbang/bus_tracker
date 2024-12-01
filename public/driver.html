@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial_scale=1.0">
+        <title>Tracker for drivers</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+        <style>
+            #container {width:100%; height: 100%; justify-content: center; vertical-align: center; margin: 100px 100px; padding: 100px 100x;}
+        </style>
+    </head>
+
+    <body>
+        
+        <div id="container"></div>
+            <form action="#">
+                <div class="form-group">
+                    <label for="bus-code"><b>버스 코드</b></label>
+                    <input type="text" class="form-control" id="bus-code" aria-describedby="emailHelp" placeholder="Bus Code">
+                    <small id="emailHelp" class="form-text text-muted">버스 코드를 입력해주세요.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password"><b>비밀번호</b></label>
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary" onclick="login()">Login</button>
+
+                <div id="login-result"></div>
+            </form>
+        </div>
+
+        <div id="latLng" style="margin-top:5em;">
+            버스ID : <span id="bus"></span><br>
+            위도 : <span id="lat"></span><br>
+            경도 : <span id="lng"></span><br>
+            시간 : <span id="time"></span>
+        </div>
+
+        <script>
+            async function login(){
+                let users;
+                let result = document.getElementById("login-result")
+                var bus_code = document.getElementById("bus-code").value
+                var password = document.getElementById("password").value
+                let fail_count = 0;
+
+                data = await fetch('users.json');
+                users = await data.json();
+
+                /* validation */
+                for (let i=0;i<users.length;i++) {
+                    if (users[i]["bus"] === bus_code && users[i]["password"] === password){
+                        result.innerHTML = 
+                        `<div class="alert alert-primary" role="alert">
+                            Successfully Login
+                        </div>`;
+                        break;
+                    } else {
+                        fail_count += 1;
+                    }
+                };
+                
+                /* Login Failed */
+                if (fail_count === users.length){
+                    console.log('failed')
+                    result.innerHTML = 
+                        `<div class="alert alert-danger" role="alert">
+                            Login Failed
+                        </div>`;
+                } else {
+                    setInterval(()=>updateLocation(bus_code), 3000);
+                };
+            };
+
+            /* Geolocation Posting */
+            function updateLocation(bus_code){
+                var now = (new Date()).toLocaleString()
+
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                        const locationData = {
+                            bus_code: bus_code,
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                            time: now,
+                        };
+                        
+                        document.getElementById("bus").innerText = locationData["bus_code"];
+                        document.getElementById("lat").innerText = locationData["latitude"];
+                        document.getElementById("lng").innerText = locationData["longitude"];
+                        document.getElementById("time").innerText = locationData["time"];
+                        console.log(now)
+
+                        // Send location to the server
+                        fetch(`/bus/${bus_code}/data`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(locationData),
+                        });
+                        },
+                        (error) => {
+                        console.error("Error getting location", error);
+                        }
+                    );
+                    } else {
+                        console.error("Geolocation is not supported by this browser.");
+                    }
+                }
+        </script>
+
+    </body>
+</html>

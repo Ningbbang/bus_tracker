@@ -1,0 +1,91 @@
+* {
+    font-family: "Nanum Gothic", sans-serif;
+    font-style: normal;
+    margin: 0;
+}
+
+#navigation {
+    display: flex;
+    width: 100%;
+    height: 0.2fr;
+    font-size: 1.0em;
+    font-weight: 600;
+    background-color: #2d2d2d;
+}
+
+.nav-logo {
+    text-align:left;
+    color: #ffffff;
+    padding: 10px;
+}
+
+li.nav-item {
+    left:150px;
+    position:relative;
+    display:inline-block;
+    cursor: pointer;
+    width: 150px;
+    padding: 10px;
+    color: #ffffff;
+    text-align:center;
+    cursor: pointer;
+}
+
+li.nav-item:hover {
+    display:inline-block;
+    cursor: pointer;
+    background-color: #989898;
+}
+
+#location {
+    position:absolute;
+    top:40px;
+    left:245px;
+    width:150px;
+}
+
+#info {
+    position:absolute;
+    top:40px;
+    left:415px;
+    width:150px;
+}
+
+#location > li, #info > li {
+    color: #fff;
+    text-align:center;
+    text-decoration:none;
+}
+
+.sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #2d2d2d;
+    padding: 10px;
+    width: 200px;
+    z-index: 10;
+    border: 1px solid #fff;
+}
+
+.sub-menu > li {
+    padding: 5px 0;
+    text-align: left;
+    text-decoration: none;
+}
+
+a {text-decoration:none; color:#FFF;}
+ul {
+    list-style:none;
+}
+
+nav > li:hover {
+    background-color: #888;
+    cursor: pointer;
+}
+
+#map {
+    height: 100%;
+    z-index:1;
+}
