@@ -23,7 +23,7 @@ li.nav-item {
     position:relative;
     display:inline-block;
     cursor: pointer;
-    width: 150px;
+    width: 100px;
     padding: 10px;
     color: #ffffff;
     text-align:center;
@@ -46,7 +46,7 @@ li.nav-item:hover {
 #info {
     position:absolute;
     top:40px;
-    left:270px;
+    left:220px;
     width:120px;
 }
 
