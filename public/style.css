@@ -20,7 +20,6 @@
 }
 
 li.nav-item {
-    left:150px;
     position:relative;
     display:inline-block;
     cursor: pointer;
@@ -40,15 +39,15 @@ li.nav-item:hover {
 #location {
     position:absolute;
     top:40px;
-    left:245px;
-    width:150px;
+    left:95px;
+    width:120px;
 }
 
 #info {
     position:absolute;
     top:40px;
-    left:415px;
-    width:150px;
+    left:270px;
+    width:120px;
 }
 
 #location > li, #info > li {
