@@ -1,0 +1,6 @@
+[
+    {"bus": "bus1", "password": "1111"},
+    {"bus": "bus2", "password": "2222"},
+    {"bus": "bus3", "password": "3333"},
+    {"bus": "bus4", "password": "4444"}
+]
